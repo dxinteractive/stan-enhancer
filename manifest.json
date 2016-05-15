@@ -4,7 +4,7 @@
   "name": "Stan Enhancer",
   "short_name": "Stan Enhancer",
   "description": "This extension adds IMDB and Rotten Tomatoes ratings to Stan.",
-  "version": "0.1",
+  "version": "0.2",
 
   "browser_action": {
     "default_icon": "icon32.png",
