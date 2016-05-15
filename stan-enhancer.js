@@ -65,13 +65,24 @@ var Poller = {
 //
 
 var OMDBRatings = {
+	REMAKE_YEAR_THRESHOLD: 5,
+
 	fetch(info, success, failure) {
 		var _this = this;
 		var type = info.programType=="series" ? "series" : "movie";
+		var year = info.useYear ? info.releaseYear : "";
 
-		$.getJSON( "https://www.omdbapi.com/?t="+encodeURIComponent(info.title)+"&type="+type+"&plot=short&tomatoes=true&r=json", function(data) {
+		$.getJSON( "https://www.omdbapi.com/?t="+encodeURIComponent(info.title)+"&type="+type+"&y="+year+"&plot=short&tomatoes=true&r=json", function(data) {
+			console.log("fetch", info, data);
+
 			if(data.Response != "False") {
-				success(data);
+				if(!info.useYear && Math.abs(data.Year - info.releaseYear) > OMDBRatings.REMAKE_YEAR_THRESHOLD) {
+					info.useYear = true;
+					_this.fetch(info, success, failure);
+				} else {
+					success(data);
+				}
+
 			} else {
 				failure();
 			}
