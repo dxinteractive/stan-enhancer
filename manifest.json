@@ -1,0 +1,45 @@
+{
+  "manifest_version": 2,
+
+  "name": "Stan Enhancer",
+  "short_name": "Stan Enhancer",
+  "description": "This extension adds IMDB and Rotten Tomatoes ratings to Stan.",
+  "version": "0.1",
+
+  "browser_action": {
+    "default_icon": "icon32.png",
+    "default_title": "Stan Enhancer"
+  },
+
+  "icons": {
+  	"16": "icon16.png",
+  	"32": "icon32.png",
+    "48": "icon48.png",
+    "128": "icon128.png"
+  },
+
+  "permissions": [
+    "activeTab",
+    "https://*.stan.com.au/"
+  ],
+
+  "background":{
+    "scripts":["background.js"]
+  },
+  
+  "content_scripts": [
+    {
+      "matches": ["http://play.stan.com.au/*","https://play.stan.com.au/*"],
+      "css": ["stan-enhancer.css"],
+      "js": ["jquery.js", "stan-enhancer.js"]
+    }
+  ],
+
+  "web_accessible_resources": [
+    "imdb-star.png",
+    "rt-certified.png",
+    "rt-fresh.png",
+    "rt-rotten.png",
+    "yt-icon.png"
+  ]
+}
